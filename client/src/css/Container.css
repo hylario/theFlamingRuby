@@ -1,0 +1,8 @@
+.App-container{
+	margin-top: 20px;
+}
+.Content{
+	border: solid 1px #222;
+	border-radius: 5px;
+	padding: 10px;
+}

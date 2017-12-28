@@ -1,0 +1,16 @@
+.BtnRegister{
+	cursor: pointer;
+	margin: 10px
+}
+.BtnRegister:hover{
+	font-weight: bold;
+}
+.Title{
+	margin-top: 20px;
+}
+.LoginForm{
+	margin-top: 20px;
+	border: solid 1px #aaa;
+	border-radius: 5px;
+	padding: 10px;
+}
