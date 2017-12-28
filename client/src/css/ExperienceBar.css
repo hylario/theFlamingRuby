@@ -1,0 +1,9 @@
+.ExperienceBar{
+	height: 8px;
+	background: #eee;
+}
+.ExperienceFill{
+	height: 8px;
+	position: fixed;
+	background: #40b140;
+}

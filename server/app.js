@@ -85,17 +85,56 @@ io.use(socketioJwt.authorize({
 io.on('connection', function(client){
 
 	console.log('Connected ' + client.id);
-	console.log(client.decoded_token);
+
+	update(client);
 
 	client.on('attack', function(data){
 
-		console.log(data);
-		let playerId = client.decoded_token.player._id;
-
-		Player.update({ _id: playerId }, { $inc: { experience: 1 }}, null, function(err){
+		Player.findOne({
+			_id: client.decoded_token.player._id
+		}, function(err, player){
 			if(err) throw err;
+
+			if(player){
+
+				if(player.cooldown <= new Date()){
+
+					let newCooldown = new Date();
+					newCooldown.setSeconds(newCooldown.getSeconds() + 5);
+
+					Player.update({ _id: player._id }, { $inc: { experience: 1 }, cooldown: newCooldown}, null, function(err){
+						if(err) throw err;
+
+						update(client);
+					});
+				}else{
+
+					update(client);
+				}
+			}
 		});
 	});
 });
+
+function update(client){
+
+	Player.findOne({
+		_id: client.decoded_token.player._id
+	}, function(err, player){
+		if(err) throw err;
+
+		if(player){
+
+			cooldown = player.cooldown - new Date();
+			data = {
+				level: player.level,
+				experience: player.experience,
+				cooldown: cooldown < 0 ? 0 : cooldown
+			};
+
+			client.emit('update', data);
+		}
+	});
+}
 
 server.listen(4200);
