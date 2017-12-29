@@ -5,6 +5,7 @@ import LeftSideBar from './LeftSideBar';
 import Home from './Home';
 import Header from './Header';
 import ExperienceBar from './ExperienceBar';
+import CooldownBar from './CooldownBar';
 // import Auth from './Auth';
 // import { SocketProvider } from 'socket.io-react';
 // import io from 'socket.io-client';
@@ -19,21 +20,19 @@ class Container extends Component {
 			player: {
 				level: 0,
 				experience: 0,
-				cooldown: 0
+				cooldown: 0,
+				cooldownSeconds: 0
 			}
 		}
 
 		if(this.state.socket){
 			let self = this;
 			this.state.socket.on('update', function(data){
-				self.setState({
-					player: data
-				});
+				self.setState((state) => ({player: data }));
 			});
+
+			this.state.socket.emit('update');
 		}
-	}
-	componentWillReceiveProps(){
-		console.log(this.props);
 	}
 	render() {
 		return (
@@ -41,6 +40,7 @@ class Container extends Component {
 				<div className="App">
 					<Header />
 					<ExperienceBar experience={this.state.player.experience} />
+					<CooldownBar cooldown={this.state.player.cooldown} cooldownSeconds={this.state.player.cooldownSeconds} />
 					<div className="App-container">
 						<div className="row">
 							<div className="col-md-3">

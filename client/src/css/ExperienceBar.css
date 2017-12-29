@@ -1,9 +1,16 @@
 .ExperienceBar{
-	height: 8px;
+	height: 12px;
 	background: #eee;
 }
 .ExperienceFill{
-	height: 8px;
-	position: fixed;
+	height: 12px;
+	position: relative;
 	background: #40b140;
+}
+.ExperiencePercent{
+	position: absolute;
+	right: 0;
+	font-size: 10px;
+	line-height: 12px;
+	color: black;
 }

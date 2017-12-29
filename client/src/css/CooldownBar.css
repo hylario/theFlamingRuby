@@ -1,0 +1,24 @@
+.CooldownBar{
+	height: 4px;
+	background: #eee;
+}
+.CooldownFill{
+	height: 4px;
+	position: relative;
+	background: #a04140;
+}
+.CooldownPercent{
+	position: absolute;
+	right: 0;
+	font-size: 10px;
+	line-height: 12px;
+	color: black;
+}
+.CooldownValue{
+	position: absolute;
+	top: 4px;
+	left: 10px;
+	width: 50px;
+	text-align: left;
+	font-size: 12px;
+}

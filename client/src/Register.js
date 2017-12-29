@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 // import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom';
 import axios from 'axios';
-import Auth from './Auth';
 import Login from './Login';
-import io from 'socket.io-client';
 import './css/Register.css';
 
 class Register extends Component {
