@@ -5,6 +5,12 @@ var io = require('socket.io')(server);
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
+var fs = require('fs');
+
+var base64 = require('node-base64-image');
+
+var setup = require('./setup');
+var api = require('./api');
 
 var socketioJwt   = require("socketio-jwt");
 
@@ -14,6 +20,8 @@ var config = {
 
 var User = require('./models/user');
 var Player = require('./models/player');
+var Experience = require('./models/experience');
+var Monster = require('./models/monster');
 
 mongoose.connect('mongodb://localhost/theflamingruby');
 
@@ -25,6 +33,8 @@ app.use(function(req, res, next) {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.get('/setup', setup);
 
 app.post('/login', function(req, res, err){
 
@@ -86,55 +96,59 @@ io.on('connection', function(client){
 
 	console.log('Connected ' + client.id);
 
-	update(client);
+	api.update(client);
 
-	client.on('attack', function(data){
+	client.on('attack', api.attack);
 
-		Player.findOne({
-			_id: client.decoded_token.player._id
-		}, function(err, player){
+	client.on('update', function(){
+
+		api.update(client);
+	});
+
+	client.on('getMonstersList', function(){
+
+		Monster.find({}, function(err, monsters){
 			if(err) throw err;
 
-			if(player){
+			if(monsters){
+				let monstersList = [];
 
-				if(player.cooldown <= new Date()){
+				monsters.forEach(function(v,i){
+					monstersList.push({
+						value: v._id,
+						label: v.name
+					});
+				});
 
-					let newCooldown = new Date();
-					newCooldown.setSeconds(newCooldown.getSeconds() + 5);
+				client.emit('monstersList', monstersList);
+			}
+		});
+	});
 
-					Player.update({ _id: player._id }, { $inc: { experience: 1 }, cooldown: newCooldown}, null, function(err){
+	client.on('getMonsterInfo', function(monster_id){
+
+		Monster.findOne({_id: monster_id}, function(err, monster){
+			if(err) throw err;
+
+			if(monster){
+
+				if(fs.existsSync(monster.image)){
+					base64.encode(monster.image, {string: true, local: true}, function(err, result){
 						if(err) throw err;
 
-						update(client);
+						monster.image = "data:image/gif;base64," + result;
+
+						client.emit('monsterInfo', monster);
 					});
 				}else{
 
-					update(client);
+					monster.image = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+
+					client.emit('monsterInfo', monster);
 				}
 			}
 		});
 	});
 });
-
-function update(client){
-
-	Player.findOne({
-		_id: client.decoded_token.player._id
-	}, function(err, player){
-		if(err) throw err;
-
-		if(player){
-
-			cooldown = player.cooldown - new Date();
-			data = {
-				level: player.level,
-				experience: player.experience,
-				cooldown: cooldown < 0 ? 0 : cooldown
-			};
-
-			client.emit('update', data);
-		}
-	});
-}
 
 server.listen(4200);

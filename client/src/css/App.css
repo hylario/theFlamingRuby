@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .App-logo {
@@ -8,7 +9,7 @@
 }
 
 .App-container {
-  width: 800px;
+  width: 1024px;
   margin: auto;
 }
 

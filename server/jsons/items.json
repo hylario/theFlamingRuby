@@ -1,0 +1,23 @@
+[
+	{
+		"name": "Axe",
+		"level": 0,
+		"hp": 5,
+		"attack": 1,
+		"defense": 1
+	},
+	{
+		"name": "Sword",
+		"level": 0,
+		"hp": 10,
+		"attack": 2,
+		"defense": 2
+	},
+	{
+		"name": "Mace",
+		"level": 0,
+		"hp": 10,
+		"attack": 2,
+		"defense": 2
+	}
+]

@@ -3,3 +3,19 @@
 	border-radius: 5px;
 	padding: 10px;
 }
+.PlayerInfo{
+	text-transform: uppercase;
+	margin-bottom: 15px;
+}
+.PlayerInfo .PlayerName{
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px; 
+}
+.PlayerInfo .title{
+	font-size: 10px;
+	padding-top: 4px;
+}
+.PlayerInfo .value{
+	font-weight: bold;
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NumberFormat from 'react-number-format';
+import Auth from './Auth';
 import './css/CooldownBar.css';
 
 class CooldownBar extends Component {
@@ -11,15 +12,22 @@ class CooldownBar extends Component {
 			percent: 0,
 			style: {
 				width: '0%'
-			}
+			},
+			interval: null
 		}
 
 		this.updateBar = this.updateBar.bind(this);
 
 		let self = this;
-		setInterval(function(){
-			if(self.state.cooldown > -100)
-				self.updateBar();
+
+		this.interval = setInterval(function(){
+
+			if(!Auth.getState().authenticated){
+				clearInterval(self.interval);
+			}else{
+				if(self.state.cooldown > -100)
+					self.updateBar();
+			}
 		}, 10);
 	}
 	updateBar(){
@@ -38,7 +46,11 @@ class CooldownBar extends Component {
 			}
 		});
 	}
+	componentWillUnmount(){
+		clearInterval(this.interval);
+	}
 	componentWillReceiveProps(nextProps){
+
 		this.setState({
 			cooldown: nextProps.cooldown,
 			cooldownSeconds: nextProps.cooldownSeconds

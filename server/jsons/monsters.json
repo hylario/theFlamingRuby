@@ -1,0 +1,392 @@
+[
+  {
+    "name": "penguin",
+    "level": 0,
+    "hp": 33,
+    "experience": 1,
+    "image": "./img/monsters/penguin.gif",
+    "attack": 1,
+    "defense": 0.7,
+    "loot": []
+  },
+  {
+    "name": "skunk",
+    "level": 0,
+    "hp": 20,
+    "experience": 3,
+    "image": "img/monsters/skunk.gif",
+    "attack": 3,
+    "defense": 2,
+    "loot": []
+  },
+  {
+    "name": "badger",
+    "level": 0,
+    "hp": 23,
+    "experience": 5,
+    "image": "img/monsters/badger.gif",
+    "attack": 5,
+    "defense": 3.3,
+    "loot": []
+  },
+  {
+    "name": "rat",
+    "level": 0,
+    "hp": 20,
+    "experience": 5,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_rat.gif",
+    "attack": 5,
+    "defense": 3.3,
+    "loot": []
+  },
+  {
+    "name": "bat",
+    "level": 0,
+    "hp": 30,
+    "experience": 10,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_bat.gif",
+    "attack": 10,
+    "defense": 6.7,
+    "loot": []
+  },
+  {
+    "name": "cave rat",
+    "level": 0,
+    "hp": 30,
+    "experience": 10,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_cave rat.gif",
+    "attack": 10,
+    "defense": 6.7,
+    "loot": []
+  },
+  {
+    "name": "snake",
+    "level": 0,
+    "hp": 15,
+    "experience": 10,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_snake.gif",
+    "attack": 10,
+    "defense": 6.7,
+    "loot": []
+  },
+  {
+    "name": "spider",
+    "level": 0,
+    "hp": 20,
+    "experience": 12,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_spider.gif",
+    "attack": 12,
+    "defense": 8,
+    "loot": []
+  },
+  {
+    "name": "bug",
+    "level": 0,
+    "hp": 29,
+    "experience": 18,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_bug.gif",
+    "attack": 18,
+    "defense": 12,
+    "loot": []
+  },
+  {
+    "name": "wolf",
+    "level": 0,
+    "hp": 25,
+    "experience": 18,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_wolf.gif",
+    "attack": 18,
+    "defense": 12,
+    "loot": []
+  },
+  {
+    "name": "hyaena",
+    "level": 0,
+    "hp": 60,
+    "experience": 20,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_hyaena.gif",
+    "attack": 20,
+    "defense": 13.3,
+    "loot": []
+  },
+  {
+    "name": "troll",
+    "level": 0,
+    "hp": 50,
+    "experience": 20,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_troll.gif",
+    "attack": 20,
+    "defense": 13.3,
+    "loot": []
+  },
+  {
+    "name": "winter wolf",
+    "level": 0,
+    "hp": 30,
+    "experience": 20,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_winter wolf.gif",
+    "attack": 20,
+    "defense": 13.3,
+    "loot": []
+  },
+  {
+    "name": "poison spider",
+    "level": 0,
+    "hp": 26,
+    "experience": 22,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_poison spider.gif",
+    "attack": 22,
+    "defense": 14.7,
+    "loot": []
+  },
+  {
+    "name": "bear",
+    "level": 0,
+    "hp": 80,
+    "experience": 23,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_bear.gif",
+    "attack": 23,
+    "defense": 15.3,
+    "loot": []
+  },
+  {
+    "name": "frost troll",
+    "level": 0,
+    "hp": 55,
+    "experience": 23,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_frost troll.gif",
+    "attack": 23,
+    "defense": 15.3,
+    "loot": []
+  },
+  {
+    "name": "wasp",
+    "level": 0,
+    "hp": 35,
+    "experience": 24,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_wasp.gif",
+    "attack": 24,
+    "defense": 16,
+    "loot": []
+  },
+  {
+    "name": "goblin",
+    "level": 0,
+    "hp": 50,
+    "experience": 25,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_goblin.gif",
+    "attack": 25,
+    "defense": 16.7,
+    "loot": []
+  },
+  {
+    "name": "orc",
+    "level": 0,
+    "hp": 70,
+    "experience": 25,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_orc.gif",
+    "attack": 25,
+    "defense": 16.7,
+    "loot": []
+  },
+  {
+    "name": "swamp troll",
+    "level": 0,
+    "hp": 55,
+    "experience": 25,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_swamp troll.gif",
+    "attack": 25,
+    "defense": 16.7,
+    "loot": []
+  },
+  {
+    "name": "troll guard",
+    "level": 0,
+    "hp": 60,
+    "experience": 25,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_troll guard.gif",
+    "attack": 25,
+    "defense": 16.7,
+    "loot": []
+  },
+  {
+    "name": "polar bear",
+    "level": 0,
+    "hp": 85,
+    "experience": 28,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_polar bear.gif",
+    "attack": 28,
+    "defense": 18.7,
+    "loot": []
+  },
+  {
+    "name": "cobra",
+    "level": 0,
+    "hp": 65,
+    "experience": 30,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_cobra.gif",
+    "attack": 30,
+    "defense": 20,
+    "loot": []
+  },
+  {
+    "name": "crab",
+    "level": 0,
+    "hp": 55,
+    "experience": 30,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_crab.gif",
+    "attack": 30,
+    "defense": 20,
+    "loot": []
+  },
+  {
+    "name": "lion",
+    "level": 0,
+    "hp": 80,
+    "experience": 30,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_lion.gif",
+    "attack": 30,
+    "defense": 20,
+    "loot": []
+  },
+  {
+    "name": "centipede",
+    "level": 0,
+    "hp": 70,
+    "experience": 34,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_centipede.gif",
+    "attack": 34,
+    "defense": 22.7,
+    "loot": []
+  },
+  {
+    "name": "skeleton",
+    "level": 0,
+    "hp": 50,
+    "experience": 35,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_skeleton.gif",
+    "attack": 35,
+    "defense": 23.3,
+    "loot": []
+  },
+  {
+    "name": "goblin scavenger",
+    "level": 0,
+    "hp": 60,
+    "experience": 37,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_goblin scavenger.gif",
+    "attack": 37,
+    "defense": 24.7,
+    "loot": []
+  },
+  {
+    "name": "orc spearman",
+    "level": 0,
+    "hp": 105,
+    "experience": 38,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_orc spearman.gif",
+    "attack": 38,
+    "defense": 25.3,
+    "loot": []
+  },
+  {
+    "name": "rotworm",
+    "level": 0,
+    "hp": 65,
+    "experience": 40,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_rotworm.gif",
+    "attack": 40,
+    "defense": 26.7,
+    "loot": []
+  },
+  {
+    "name": "tiger",
+    "level": 0,
+    "hp": 75,
+    "experience": 40,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_tiger.gif",
+    "attack": 40,
+    "defense": 26.7,
+    "loot": []
+  },
+  {
+    "name": "troll champion",
+    "level": 0,
+    "hp": 75,
+    "experience": 40,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_troll champion.gif",
+    "attack": 40,
+    "defense": 26.7,
+    "loot": []
+  },
+  {
+    "name": "troll marauder",
+    "level": 0,
+    "hp": 70,
+    "experience": 40,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_troll marauder.gif",
+    "attack": 40,
+    "defense": 26.7,
+    "loot": []
+  },
+  {
+    "name": "elf",
+    "level": 0,
+    "hp": 100,
+    "experience": 42,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_elf.gif",
+    "attack": 42,
+    "defense": 28,
+    "loot": []
+  },
+  {
+    "name": "larva",
+    "level": 0,
+    "hp": 70,
+    "experience": 44,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_larva.gif",
+    "attack": 44,
+    "defense": 29.3,
+    "loot": []
+  },
+  {
+    "name": "dwarf",
+    "level": 0,
+    "hp": 90,
+    "experience": 45,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_dwarf.gif",
+    "attack": 45,
+    "defense": 30,
+    "loot": []
+  },
+  {
+    "name": "scorpion",
+    "level": 0,
+    "hp": 45,
+    "experience": 45,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_scorpion.gif",
+    "attack": 45,
+    "defense": 30,
+    "loot": []
+  },
+  {
+    "name": "skeleton warrior",
+    "level": 0,
+    "hp": 65,
+    "experience": 45,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_skeleton warrior.gif",
+    "attack": 45,
+    "defense": 30,
+    "loot": []
+  },
+  {
+    "name": "smuggler",
+    "level": 0,
+    "hp": 130,
+    "experience": 48,
+    "image": "http://www.tibia-stats.com/img/monsters/tibia_stats_smuggler.gif",
+    "attack": 48,
+    "defense": 32,
+    "loot": []
+  }
+]

@@ -1,71 +1,66 @@
 import React, { Component } from 'react';
 import NumberFormat from 'react-number-format';
+// import Auth from './Auth';
 import './css/ExperienceBar.css';
 
 class ExperienceBar extends Component {
 	constructor(props){
 		super(props);
 
-		let percent = ((props.experience * 100) / 132).toFixed(2);
+		let percent = ((props.player.experience * 100) / 132).toFixed(2);
 		if(percent < 0)
 			percent = 0;
 
 		this.state = {
-			experience: props.experience,
-			currentPercent: percent,
+			player: props.player,
 			percent: percent,
-			step: 0,
 			style: {
 				width: '0%'
 			},
 			stylePercent: {
-				right: 0
-			},
-			interval: null
+				left: "0%",
+				marginLeft: '4px'
+			}
 		}
 	}
 	componentWillReceiveProps(nextProps){
-		let percent = ((nextProps.experience * 100) / 132).toFixed(2);
+		let percent = ((nextProps.player.experience * 100) / nextProps.player.experience_to_next_level).toFixed(2);
 
 		if(percent < 0)
 			percent = 0;
 
-		let step = ((percent - this.state.currentPercent) / 10).toFixed(5);
+		let stylePercent = {
+			left: percent + "%",
+			marginLeft: '4px',
+			color: 'black'
+		};
 
-		let self = this;
+		if(percent > 80){
+			stylePercent = {
+				left: percent + "%",
+				marginLeft: '-204px',
+				color: 'white',
+				width: '200px'
+			};
+		}
 
 		this.setState({
-			experience: nextProps.experience,
-			percent: percent,
-			step: +step,
-			interval: setInterval(function(){
-				if(+parseFloat(self.state.currentPercent).toFixed(1) !== +parseFloat(self.state.percent).toFixed(1)){
-					let currentPercent = +self.state.currentPercent + +self.state.step;
-					self.setState({
-						currentPercent,
-						style: {
-							width: currentPercent + "%"
-						},
-						stylePercent: {
-							right: (currentPercent < 10 ? '-32px' : (currentPercent < 90 ? '-38px' : '2px'))
-						},
-					});
-				}else{
-					self.setState({
-						currentPercent: self.state.percent
-					});
-					clearInterval(self.interval);
-				}
-			}, 10)
+			player: nextProps.player,
+			percent,
+			style: {
+				width: percent + "%"
+			},
+			stylePercent
 		});
 	}
 	render() {
 		return (
 			<div className="ExperienceBar">
+				<div className="ExperiencePercent"  style={this.state.stylePercent}>
+					<NumberFormat value={this.state.percent} isNumericString={true} decimalSeparator="," suffix=" %" displayType={'text'} />
+					<span className="ExperienceValue">{this.state.player.experience} / {this.state.player.experience_to_next_level}</span>
+				</div>
 				<div className="ExperienceFill" style={this.state.style}>
-					<div className="ExperiencePercent"  style={this.state.stylePercent}>
-						<NumberFormat value={this.state.percent} isNumericString={true} decimalSeparator="," suffix=" %" displayType={'text'} />
-					</div>
 				</div>
 			</div>
 		);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AlertContainer from 'react-alert'
 // import { BrowserRouter as Router, Route, Link, Switch, Redirect, withRouter } from 'react-router-dom';
 // import PrivateRoute from './PrivateRoute';
+import { withAlert } from 'react-alert';
 import Auth from './Auth';
 // import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -13,20 +13,13 @@ import Container from './Container';
 import Login from './Login';
 
 class App extends Component {
-	alertOptions = {
-		offset: 14,
-		position: 'top right',
-		theme: 'dark',
-		time: 5000,
-		transition: 'scale'
-	}
 	showAlert = (message, type) => {
 		if(Array.isArray(message))
 			message = message.map((m,i) => (<div key={i}>{m}</div>));
 
-		this.msg.show(<div>{message}</div>, {
-	      time: 3000,
-	      type: type
+		this.props.alert.show(<div>{message}</div>, {
+			timeout: 3000,
+			type: type
 	    })
 	}
 	constructor(props){
@@ -58,7 +51,6 @@ class App extends Component {
 		return (
 			<SocketProvider socket={this.state.socket}>
 				<div className="App">
-					<AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
 					{this.state.page}
 				</div>
 			</SocketProvider>
@@ -66,4 +58,4 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default withAlert(App);

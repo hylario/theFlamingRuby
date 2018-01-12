@@ -12,12 +12,12 @@ class Header extends Component {
 
 	handleBtnAttack(event){
 		event.preventDefault();
-		this.props.appContext.state.socket.emit('attack', 1);
+		this.props.appContext.state.socket.emit('attack', 11);
 	}
 
 	handleBtnDown(event){
 		event.preventDefault();
-		this.props.appContext.state.socket.emit('attack', -1);
+		this.props.appContext.state.socket.emit('attack', -11);
 	}
 
 	render() {
