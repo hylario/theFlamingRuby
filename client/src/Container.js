@@ -33,7 +33,6 @@ class Container extends Component {
 			let self = this;
 			this.state.socket
 				.on('update', function(data){
-					console.log(data);
 					self.setState((state) => ({player: data }));
 				})
 				.on('monstersList', function(data){
@@ -41,6 +40,7 @@ class Container extends Component {
 				});
 
 			this.state.socket.emit('update');
+			this.state.socket.emit('getMonstersList');
 		}
 	}
 	render() {

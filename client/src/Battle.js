@@ -4,10 +4,6 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import './css/Battle.css';
 
-import image from './img/monsters/penguin.gif';
-
-console.log(image);
-
 class Battle extends Component {
 
 	constructor(props) {
@@ -15,7 +11,7 @@ class Battle extends Component {
 
 		this.state = {
 			socket: props.socket,
-			monstersList: null,
+			monstersList: props.monstersList,
 			monsterSelected: {
 				value: localStorage.getItem('monster_attacked_id')
 			},
@@ -27,8 +23,6 @@ class Battle extends Component {
 		this.handleMonsterInfo = this.handleMonsterInfo.bind(this);
 
 		if(this.state.socket){
-
-			this.state.socket.emit('getMonstersList');
 
 			this.state.socket.on('monsterInfo', this.handleMonsterInfo);
 		}
