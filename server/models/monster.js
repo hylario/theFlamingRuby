@@ -8,7 +8,7 @@ var MonsterSchema = new Schema({
 	attack: { type: Number, default: 0 },
 	defense: { type: Number, default: 0 },
 	experience: { type: Number },
-	image: String,
+	gold: { type: Number, default: 0},
 	loot: [{
 		rarity: Number, 
 		item: { type: Schema.Types.ObjectId, ref: 'Item' }

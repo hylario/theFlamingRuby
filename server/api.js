@@ -57,9 +57,14 @@ api.attack = function(monster_id){
 
 				if(monster){
 
+					let battleLog = player.attackMonster(monster);
+
+					console.log(player);
+
 					let newCooldown = new Date();
 					let cooldownSeconds = 0.1;
-					let experience = player.experience + monster.experience;
+					let experience = player.experience + battleLog.experience;
+					let gold = player.gold + battleLog.gold;
 
 					if(experience < 0){
 						experience = 0;
@@ -74,12 +79,14 @@ api.attack = function(monster_id){
 
 					newCooldown.setMilliseconds(newCooldown.getMilliseconds() + (cooldownSeconds * 1000));
 
-					Player.update({ _id: player._id }, {
-						cooldownSeconds,
-						experience: experience,
-						cooldown: newCooldown,
-						level: player.level
-					}, null, function(err){
+					api.battleLog(client, battleLog);
+
+					player.cooldown = newCooldown;
+					player.cooldownSeconds = cooldownSeconds;
+					player.experience = experience;
+					player.gold = gold;
+
+					Player.update({ _id: player._id }, player, null, function(err){
 						if(err) callback(err);
 
 						callback(null, true);
@@ -95,7 +102,7 @@ api.attack = function(monster_id){
 
 api.update = function(client){
 
-	if(typeof client.decoded_token != 'undefined'){
+	if(typeof client.decoded_token !== 'undefined' && typeof client.decoded_token.player !== 'undefined'){
 
 		async.seq(
 			function(callback){
@@ -132,6 +139,11 @@ api.update = function(client){
 			client.emit('update', result);
 		});
 	}
+};
+
+api.battleLog = function(client, battleLog){
+
+	client.emit('battleLog', battleLog);
 };
 
 module.exports = api;

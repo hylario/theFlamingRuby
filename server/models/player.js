@@ -11,11 +11,150 @@ var PlayerSchema = new Schema({
 	credits: { type: Number, default: 0 },
 	gold: { type: Number, default: 0 },
 	ruby: { type: Number, default: 0 },
-	health: { type: Number, default: 0 },
-	attack: { type: Number, default: 0 },
-	defense: { type: Number, default: 0 },
-	accuracy: { type: Number, default: 0 },
+	health: { type: Number, default: 1 },
+	attack: { type: Number, default: 1 },
+	defense: { type: Number, default: 1 },
+	accuracy: { type: Number, default: 50 },
 	evasion: { type: Number, default: 0 }
 });
+
+PlayerSchema.methods.attackMonster = function (monster) {
+	
+	let minAttack = (0.085 * ((this.accuracy - 25) / 100) * (1 * 2) * this.attack) + (this.level / 5) - (monster.defense * 2);
+	let maxAttack = (0.085 * (this.accuracy / 100) * (1 * 2.5) * this.attack) + (this.level / 5) - (monster.defense * 2);
+
+	let playerMinDef = (this.defense * 0.02 * 6);
+	let playerMaxDef = (this.defense * 0.0956 * 6);
+
+	let playerHP = this.health * 10;
+	let monsterHP = monster.hp;
+
+	let playerTotalHitCount = 0;
+	let monsterTotalHitCount = 0;
+	let playerHitCount = 0;
+	let playerMissedCount = 0;
+	let monsterHitCount = 0;
+	let monsterMissedCount = 0;
+
+	let totalDamage = 0;
+	let totalDamageTaken = 0;
+
+	let averageDamage = 0;
+	let averageDamageTaken = 0;
+
+	let gold = 0;
+	let experience = 0;
+
+	let win = false;
+
+	while(playerHP > 0 && monsterHP > 0){
+
+		let attack = Number(((Math.random() * (maxAttack - minAttack)) + minAttack).toFixed(2));
+
+		if(Math.random() > (this.accuracy / 100)){
+			attack = 0;
+		}
+
+		if(attack <= 0){
+			attack = 0;
+			playerMissedCount++;
+		}else{
+			playerHitCount++;
+		}
+
+		monsterHP -= attack;
+
+		totalDamage += attack;
+		playerTotalHitCount++;
+
+		if(monsterHP <= 0){
+			win = true;
+			break;
+		}
+
+		let playerDef = ((Math.random() * (playerMaxDef - playerMinDef)) + playerMinDef).toFixed(2);
+		let monsterAttack = monster.attack - playerDef;
+
+		if(Math.random() <= (this.evasion / 100)){
+			monsterAttack = 0;
+			monsterMissedCount++;
+		}
+
+		if(monsterAttack > 0){
+			monsterHitCount++;
+		}
+
+		playerHP -= monsterAttack;
+		totalDamageTaken += monsterAttack;
+
+		monsterTotalHitCount++;
+
+		if(playerHP <= 0){
+			win = false;
+			break;
+		}
+	}
+
+	if(win){
+
+		gold = Math.round(Math.random() * monster.gold);
+		experience = monster.experience;
+
+	}
+		this.getLootStats();
+
+	totalDamage = totalDamage.toFixed(2);
+	totalDamageTaken = totalDamageTaken.toFixed(2);
+
+	averageDamage = (totalDamage / playerHitCount).toFixed(2);
+	averageDamageTaken = (totalDamageTaken / monsterHitCount).toFixed(2);
+
+	return {
+		playerTotalHitCount,
+		monsterTotalHitCount,
+		playerHitCount,
+		playerMissedCount,
+		monsterHitCount,
+		monsterMissedCount,
+		totalDamage,
+		totalDamageTaken,
+		win,
+		gold,
+		experience,
+		averageDamage,
+		averageDamageTaken,
+		monsterName: monster.name,
+		playerWeapon: null
+	};
+};
+
+PlayerSchema.methods.getLootStats = function () {
+
+	// 1 = Health
+	// 2 = Attack
+	// 3 = Defense
+	// 4 = Accuracy
+	// 5 = Evasion
+
+	let stat = Math.floor(Math.random() * 5) + 1;
+
+	switch(stat){
+		case 1: 
+			this.health += 1;
+			break;
+		case 2: 
+			this.attack += 1;
+			break;
+		case 3: 
+			this.defense += 1;
+			break;
+		case 4: 
+			this.accuracy = (this.accuracy + 0.01).toFixed(2);
+			break;
+		case 5: 
+			this.evasion = (this.evasion + 0.01).toFixed(2);
+			break;
+	}
+};
 
 module.exports = mongoose.model('Player', PlayerSchema);

@@ -1,4 +1,9 @@
 .SelectMonster{
-	width: 300px;
+	width: 100%;
 	margin: auto;
+}
+.LootLog, .BattleLog{
+	border: solid 1px #ccc;
+	border-radius: 5px;
+	height: 200px;
 }

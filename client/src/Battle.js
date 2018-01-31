@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { socketConnect } from 'socket.io-react';
 import Select from 'react-select';
+import BattleLog from './BattleLog';
 import 'react-select/dist/react-select.css';
 import './css/Battle.css';
 
@@ -47,6 +48,8 @@ class Battle extends Component {
 		this.setState({ monsterSelected: event });
 		if(event){
 			this.state.socket.emit('getMonsterInfo', event.value);
+		}else{
+			this.setState({ monster: null });
 		}
 	}
 	componentWillReceiveProps(nextProps){
@@ -57,15 +60,32 @@ class Battle extends Component {
 	render() {
 		return (
 			<div className="Battle">
-				<Select
-					className="SelectMonster"
-					name="monster"
-					value={this.state.monsterSelected && this.state.monsterSelected.value}
-					onChange={this.handleChange}
-					options={this.state.monstersList}
-				/>
-				{this.state.monster && this.state.monster.image && <img src={this.state.monster.image} />}
-				{this.state.monster && <div className="BtnRegister" onClick={this.handleBtnAttack}>Attack</div>}
+				<div className="row">
+					<div className="col-md-3">
+						<div className="LootLog">
+							Loot
+						</div>
+					</div>
+					<div className="col-md-3">
+						<div className="MonsterInfo">
+							<Select
+								className="SelectMonster"
+								name="monster"
+								value={this.state.monsterSelected && this.state.monsterSelected.value}
+								placeholder="Select a Monster"
+								onChange={this.handleChange}
+								options={this.state.monstersList}
+							/>
+							{this.state.monster && this.state.monster.image && <img src={this.state.monster.image} />}
+							{this.state.monster && <div className="BtnRegister" onClick={this.handleBtnAttack}>Attack</div>}
+						</div>
+					</div>
+					<div className="col-md-6">
+						<div className="BattleLog">
+							<BattleLog />
+						</div>
+					</div>
+				</div>
 			</div>
 		);
 	}
