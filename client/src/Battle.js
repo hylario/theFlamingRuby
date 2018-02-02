@@ -77,7 +77,7 @@ class Battle extends Component {
 								options={this.state.monstersList}
 							/>
 							{this.state.monster && this.state.monster.image && <img src={this.state.monster.image} />}
-							{this.state.monster && <div className="BtnRegister" onClick={this.handleBtnAttack}>Attack</div>}
+							{this.state.monster && <div className="BtnAttack" id="BtnAttack" onClick={this.handleBtnAttack}>Attack</div>}
 						</div>
 					</div>
 					<div className="col-md-6">

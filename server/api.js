@@ -59,11 +59,9 @@ api.attack = function(monster_id){
 
 					let battleLog = player.attackMonster(monster);
 
-					console.log(player);
-
 					let newCooldown = new Date();
 					let cooldownSeconds = 0.1;
-					let experience = player.experience + battleLog.experience;
+					let experience = player.experience;// + battleLog.experience;
 					let gold = player.gold + battleLog.gold;
 
 					if(experience < 0){
@@ -121,9 +119,18 @@ api.update = function(client){
 
 					if(exp){
 						let cooldown = player.cooldown - new Date();
+						let stats = {
+							health: {value: player.health, cap: player.healthCap},
+							attack: {value: player.attack, cap: player.attackCap},
+							defense: {value: player.defense, cap: player.defenseCap},
+							accuracy: {value: player.accuracy, cap: player.accuracyCap},
+							evasion: {value: player.evasion, cap: player.evasionCap}
+						};
 						callback(null, {
+							stats,
 							name: player.user.username,
 							level: player.level,
+							gold: player.gold,
 							total_experience: player.experience,
 							experience: player.experience - exp.experience,
 							experience_to_next_level: exp.experience_to_next_level,

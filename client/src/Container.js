@@ -24,7 +24,14 @@ class Container extends Component {
 				experience: 0,
 				experience_to_next_level: 0,
 				cooldown: 0,
-				cooldownSeconds: 0
+				cooldownSeconds: 0,
+				stats: {
+					health: {value: 0, cap: 0},
+					attack: {value: 0, cap: 0},
+					defense: {value: 0, cap: 0},
+					accuracy: {value: 0, cap: 0},
+					evasion: {value: 0, cap: 0}
+				}
 			},
 			monstersList: []
 		}

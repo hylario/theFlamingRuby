@@ -15,7 +15,12 @@ var PlayerSchema = new Schema({
 	attack: { type: Number, default: 1 },
 	defense: { type: Number, default: 1 },
 	accuracy: { type: Number, default: 50 },
-	evasion: { type: Number, default: 0 }
+	evasion: { type: Number, default: 0 },
+	healthCap: { type: Number, default: 500 },
+	attackCap: { type: Number, default: 500 },
+	defenseCap: { type: Number, default: 500 },
+	accuracyCap: { type: Number, default: 55 },
+	evasionCap: { type: Number, default: 5 }
 });
 
 PlayerSchema.methods.attackMonster = function (monster) {
@@ -75,7 +80,7 @@ PlayerSchema.methods.attackMonster = function (monster) {
 		let playerDef = ((Math.random() * (playerMaxDef - playerMinDef)) + playerMinDef).toFixed(2);
 		let monsterAttack = monster.attack - playerDef;
 
-		if(Math.random() <= (this.evasion / 100)){
+		if(Math.random() <= (this.evasion / 100) || monsterAttack < 0){
 			monsterAttack = 0;
 			monsterMissedCount++;
 		}
@@ -106,8 +111,8 @@ PlayerSchema.methods.attackMonster = function (monster) {
 	totalDamage = totalDamage.toFixed(2);
 	totalDamageTaken = totalDamageTaken.toFixed(2);
 
-	averageDamage = (totalDamage / playerHitCount).toFixed(2);
-	averageDamageTaken = (totalDamageTaken / monsterHitCount).toFixed(2);
+	averageDamage = (totalDamage > 0 && playerHitCount > 0 ? (totalDamage / playerHitCount).toFixed(2) : 0);
+	averageDamageTaken = (totalDamageTaken > 0 && monsterHitCount > 0 ? (totalDamageTaken / monsterHitCount).toFixed(2) : 0);
 
 	return {
 		playerTotalHitCount,
@@ -136,24 +141,33 @@ PlayerSchema.methods.getLootStats = function () {
 	// 4 = Accuracy
 	// 5 = Evasion
 
-	let stat = Math.floor(Math.random() * 5) + 1;
+	let stat = Math.floor(Math.random() * 10) + 1;
+	console.log(stat);
+	let rand = Math.random();
 
 	switch(stat){
 		case 1: 
-			this.health += 1;
+			if(this.health < this.healthCap && rand >= this.health / 5000)
+				this.health += 1;
 			break;
 		case 2: 
-			this.attack += 1;
+			if(this.attack < this.attackCap && rand >= this.attack / 5000)
+				this.attack += 1;
 			break;
 		case 3: 
-			this.defense += 1;
+			if(this.defense < this.defenseCap && rand >= this.defense / 5000)
+				this.defense += 1;
 			break;
 		case 4: 
-			this.accuracy = (this.accuracy + 0.01).toFixed(2);
+			if(this.accuracy < this.accuracyCap && rand >= (this.accuracy - 50) / 50)
+				this.accuracy = (this.accuracy + 0.01).toFixed(2);
 			break;
 		case 5: 
-			this.evasion = (this.evasion + 0.01).toFixed(2);
+			if(this.evasion < this.evasionCap && rand >= this.evasion / 50)
+				this.evasion = (this.evasion + 0.01).toFixed(2);
 			break;
+		default:
+			return;
 	}
 };
 

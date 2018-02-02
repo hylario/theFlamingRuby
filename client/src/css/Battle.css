@@ -7,3 +7,10 @@
 	border-radius: 5px;
 	height: 200px;
 }
+.BtnAttack{
+	cursor: pointer;
+	margin: 10px
+}
+.BtnAttack:hover{
+	font-weight: bold;
+}
