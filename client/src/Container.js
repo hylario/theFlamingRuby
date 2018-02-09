@@ -7,6 +7,7 @@ import Battle from './Battle';
 import Header from './Header';
 import ExperienceBar from './ExperienceBar';
 import CooldownBar from './CooldownBar';
+import Inventory from './Inventory';
 // import Auth from './Auth';
 // import { SocketProvider } from 'socket.io-react';
 // import io from 'socket.io-client';
@@ -66,6 +67,7 @@ class Container extends Component {
 								<div className="Content">
 									<Route exact path="/" render={props => <Home appContext={this.props.appContext} {...props} />} />
 									<Route exact path="/battle" render={props => <Battle appContext={this.props.appContext} monstersList={this.state.monstersList} {...props} />} />
+									<Route exact path="/inventory" component={Inventory} />
 									<Route exact path="/teste" component={Header} />
 								</div>
 							</div>

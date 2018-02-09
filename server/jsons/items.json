@@ -1,6 +1,7 @@
 [
 	{
 		"name": "Axe",
+		"itemType": "weapon",
 		"level": 0,
 		"hp": 5,
 		"attack": 1,
@@ -8,6 +9,7 @@
 	},
 	{
 		"name": "Sword",
+		"itemType": "weapon",
 		"level": 0,
 		"hp": 10,
 		"attack": 2,
@@ -15,9 +17,18 @@
 	},
 	{
 		"name": "Mace",
+		"itemType": "weapon",
 		"level": 0,
 		"hp": 10,
 		"attack": 2,
 		"defense": 2
+	},
+	{
+		"name": "Attack Gem",
+		"itemType": "gem",
+		"level": 0,
+		"hp": 0,
+		"attack": 1,
+		"defense": 0
 	}
 ]

@@ -1,8 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
+var async = require('async');
 
 var Player = require('./player');
+var Item = require('./item');
+var PlayerItem = require('./player_item');
 
 var UserSchema = new Schema({
 	username: {
@@ -64,6 +67,8 @@ UserSchema.pre('save', function (next) {
 UserSchema.post('save', function(user) {
 	if(user._wasNew){
 
+		user._wasNew = false;
+
 		let newPlayer = new Player({
 			user: user._id
 		});
@@ -73,10 +78,37 @@ UserSchema.post('save', function(user) {
 
 			mongoose.model('User').update({ _id: user._id }, { player: newPlayer._id }, null, function(err){
 				if(err) throw err;
+
+			});
+
+			Item.find({name: {'$in': ['Axe', 'Attack Gem']}}).exec(function(err, items){
+				if(err) throw err;
+
+				async.eachSeries(items, function(item, callback){
+
+					let playerItem = new PlayerItem({
+						player: newPlayer._id,
+						item: item._id,
+						itemType: item.itemType,
+						name: item.name,
+						level: item.level,
+						hp: item.hp,
+						attack: item.attack,
+						defense: item.defense
+					});
+
+    				playerItem.save(function(err){
+    					if(err) return callback(err);
+
+    					callback(null);
+    				});
+				}, function(err){
+					if(err) throw err;
+
+					console.log('Complete');
+				});
 			});
 		});
-
-		user._wasNew = false;
 	}
 });
 

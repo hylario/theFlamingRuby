@@ -22,6 +22,7 @@ var User = require('./models/user');
 var Player = require('./models/player');
 var Experience = require('./models/experience');
 var Monster = require('./models/monster');
+var PlayerItem = require('./models/player_item');
 
 mongoose.connect('mongodb://localhost/theflamingruby');
 
@@ -147,6 +148,17 @@ io.on('connection', function(client){
 					client.emit('monsterInfo', monster);
 				}
 			}
+		});
+	});
+
+	client.on('getInventory', function(type){
+
+		let itemType = type || 'weapon';
+
+		PlayerItem.find({itemType}, function(err, items){
+
+			client.emit('inventoryItems', items);
+			console.log(items);
 		});
 	});
 });
