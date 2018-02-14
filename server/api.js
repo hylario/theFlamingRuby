@@ -6,6 +6,7 @@ var Item = require('./models/item');
 var User = require('./models/user');
 var Player = require('./models/player');
 var Experience = require('./models/experience');
+var PlayerItem = require('./models/player_item');
 
 let api = {};
 
@@ -61,7 +62,7 @@ api.attack = function(monster_id){
 
 					let newCooldown = new Date();
 					let cooldownSeconds = 0.1;
-					let experience = player.experience;// + battleLog.experience;
+					let experience = player.experience + battleLog.experience;
 					let gold = player.gold + battleLog.gold;
 
 					if(experience < 0){
@@ -98,7 +99,7 @@ api.attack = function(monster_id){
 	});
 };
 
-api.update = function(client){
+api.update = (client) => {
 
 	if(typeof client.decoded_token !== 'undefined' && typeof client.decoded_token.player !== 'undefined'){
 
@@ -151,6 +152,17 @@ api.update = function(client){
 api.battleLog = function(client, battleLog){
 
 	client.emit('battleLog', battleLog);
+};
+
+api.getInventory = function(type){
+
+	let client = this;
+	let itemType = type || 'weapon';
+
+	PlayerItem.find({itemType}, function(err, items){
+
+		client.emit('inventoryItems', items);
+	});
 };
 
 module.exports = api;

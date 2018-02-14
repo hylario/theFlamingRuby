@@ -1,3 +1,5 @@
+['log'].forEach(a=>{let b=console[a];console[a]=(...c)=>{try{throw new Error}catch(d){b.apply(console,[d.stack.split('\n')[2].trim().substring(3).replace(__dirname,'').replace(/\s\(./,' at ').replace(/\)/,''),'\n	',...c])}}});
+
 var express = require('express');  
 var app = express();  
 var server = require('http').createServer(app);  
@@ -97,14 +99,9 @@ io.on('connection', function(client){
 
 	console.log('Connected ' + client.id);
 
-	api.update(client);
-
 	client.on('attack', api.attack);
 
-	client.on('update', function(){
-
-		api.update(client);
-	});
+	client.on('update', () => {api.update(client)});
 
 	client.on('getMonstersList', function(){
 
@@ -151,16 +148,7 @@ io.on('connection', function(client){
 		});
 	});
 
-	client.on('getInventory', function(type){
-
-		let itemType = type || 'weapon';
-
-		PlayerItem.find({itemType}, function(err, items){
-
-			client.emit('inventoryItems', items);
-			console.log(items);
-		});
-	});
+	client.on('getInventory', api.getInventory);
 });
 
 server.listen(4200);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { socketConnect } from 'socket.io-react';
-import Select from 'react-select';
+// import Select from 'react-select';
 // import './css/Inventory.css';
 
 class Inventory extends Component {
@@ -20,7 +20,6 @@ class Inventory extends Component {
 	}
 	inventoryItems = (data) => {
 		this.setState({items: data});
-		console.log(this, data);
 	}
 	componentWillUnmount(){
 		this.state.socket.removeListener('inventoryItems', this.inventoryItems);
@@ -31,7 +30,7 @@ class Inventory extends Component {
 	render() {
 		let items = null;
 		if(this.state.items)
-			items = this.state.items.map((item) => <div>{item.name}</div>);
+			items = this.state.items.map((item) => <div key="{item.id}">{item.name}</div>);
 		return (
 			<div className="Inventory">
 				{items}
