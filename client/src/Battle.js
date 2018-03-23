@@ -33,6 +33,7 @@ class Battle extends Component {
 		}
 	}
 	handleMonsterInfo(data){
+		console.log(data);
 		this.setState({monster: data});
 	}
 	componentWillUnmount(){
@@ -41,7 +42,7 @@ class Battle extends Component {
 	handleBtnAttack(event){
 		event.preventDefault();
 		this.props.appContext.state.socket.emit('attack', this.state.monster._id);
-		localStorage.setItem('monster_attacked_id', this.state.monster._id);
+		localStorage.setItem('monster_attacked_id', this.state.monster.monster);
 	}
 
 	handleChange(event){
@@ -58,6 +59,14 @@ class Battle extends Component {
 		});
 	}
 	render() {
+
+		let monsterInfo = "";
+		if(this.state.monster){
+			monsterInfo = (
+				<div>HP: {this.state.monster.hp}</div>
+			);
+		}
+
 		return (
 			<div className="Battle">
 				<div className="row">
@@ -76,7 +85,7 @@ class Battle extends Component {
 								onChange={this.handleChange}
 								options={this.state.monstersList}
 							/>
-							{this.state.monster && this.state.monster.image && <img alt="" src={this.state.monster.image} />}
+							{monsterInfo}
 							{this.state.monster && <div className="BtnAttack" id="BtnAttack" onClick={this.handleBtnAttack}>Attack</div>}
 						</div>
 					</div>

@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var ItemSchema = new Schema({
 	itemType: { type: String },
+	itemSubType: { type: String },
 	name: { type: String, unique: true },
 	level: { type: Number },
 	hp: { type: Number },

@@ -1,0 +1,30 @@
+.ProgressBar{
+	height: 12px;
+	background: #eee;
+	position: relative;
+}
+.ProgressFill{
+	height: 12px;
+	background: #399c39;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+}
+.ProgressValue{
+	margin-left: 10px;
+	font-weight: bold;
+}
+.ProgressPercent{
+	position: absolute;
+	left: 0%;
+	font-size: 12px;
+	line-height: 14px;
+	color: black;
+	text-align: right;
+	white-space: nowrap;
+	-webkit-transition: left 1s ease;
+	-moz-transition: left 1s ease;
+	-o-transition: left 1s ease;
+	transition: left 1s ease;
+}

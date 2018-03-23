@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './css/LeftSideBar.css';
 import Auth from './Auth';
 import Login from './Login';
+import ProgressBar from './ProgressBar';
 
 class LeftSideBar extends Component {
 	constructor(props){
@@ -25,6 +26,9 @@ class LeftSideBar extends Component {
 		return (
 			<div className="LeftSideBar">
 				<div className="PlayerInfo">
+					<div className="PlayerHpBar">
+						<ProgressBar textPosition="bottom" value={this.state.player.hp} total={this.state.player.hpMax} />
+					</div>
 					<div className="PlayerName">{this.state.player.name}</div>
 					<div className="row"><div className="col-md-6 text-right title">Level </div><div className="col-md-6 text-left value">{this.state.player.level}</div></div>
 					<div className="row"><div className="col-md-6 text-right title">Experience </div><div className="col-md-6 text-left value">{this.state.player.experience}</div></div>

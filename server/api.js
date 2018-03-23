@@ -1,5 +1,7 @@
+var mongoose = require('mongoose');
 var fs = require('fs');
 var async = require('async');
+var base64 = require('node-base64-image');
 
 var Monster = require('./models/monster');
 var Item = require('./models/item');
@@ -7,6 +9,7 @@ var User = require('./models/user');
 var Player = require('./models/player');
 var Experience = require('./models/experience');
 var PlayerItem = require('./models/player_item');
+var PlayerMonster = require('./models/player_monster');
 
 let api = {};
 
@@ -53,43 +56,20 @@ api.attack = function(monster_id){
 
 			let {player, exp} = data;
 
-			Monster.findOne({_id: monster_id}, function(err, monster){
+			PlayerMonster.findOne({_id: monster_id}, function(err, monster){
 				if(err) callback(err);
 
 				if(monster){
 
-					let battleLog = player.attackMonster(monster);
+					player.exp = exp;
 
-					let newCooldown = new Date();
-					let cooldownSeconds = 0.1;
-					let experience = player.experience + battleLog.experience;
-					let gold = player.gold + battleLog.gold;
+					player.attackMonster(monster, function(result){
 
-					if(experience < 0){
-						experience = 0;
-						cooldownSeconds = 0;
-					}
-
-					if(experience >= exp.experience + exp.experience_to_next_level){
-						player.level += 1;
-					}else if(experience < exp.experience){
-						player.level -= 1;
-					}
-
-					newCooldown.setMilliseconds(newCooldown.getMilliseconds() + (cooldownSeconds * 1000));
-
-					api.battleLog(client, battleLog);
-
-					player.cooldown = newCooldown;
-					player.cooldownSeconds = cooldownSeconds;
-					player.experience = experience;
-					player.gold = gold;
-
-					Player.update({ _id: player._id }, player, null, function(err){
-						if(err) callback(err);
+						console.log(result);
 
 						callback(null, true);
 					});
+
 				}
 			});
 		}
@@ -132,6 +112,8 @@ api.update = (client) => {
 							name: player.user.username,
 							level: player.level,
 							gold: player.gold,
+							hp: player.hp,
+							hpMax: player.health * 10,
 							total_experience: player.experience,
 							experience: player.experience - exp.experience,
 							experience_to_next_level: exp.experience_to_next_level,
@@ -162,6 +144,47 @@ api.getInventory = function(type){
 	PlayerItem.find({itemType}, function(err, items){
 
 		client.emit('inventoryItems', items);
+	});
+};
+
+api.getMonsterInfo = function(monster_id, client){
+
+	if(!client)
+		client = this;
+
+	client.monster_id = monster_id;
+
+	PlayerMonster.findOne({monster: monster_id, dead: 0}, {}, {sort: {created: -1}}, function(err, playerMonster){
+		if(err) throw err;
+
+		if(playerMonster){
+
+			client.emit('monsterInfo', playerMonster);
+			api.battleLog(client, {monster: playerMonster});
+		}else{
+
+			Monster.findOne({_id: monster_id}, function(err, monster){
+				if(err) throw err;
+
+				if(monster){
+
+					let playerMonster = new PlayerMonster(monster);
+
+					playerMonster.player = client.decoded_token.player._id;
+					playerMonster.monster = monster._id;
+					playerMonster.hpMax = monster.hp;
+					playerMonster._id = mongoose.Types.ObjectId();
+					playerMonster.isNew = true;
+
+					playerMonster.save(function(err){
+						if(err) throw err;
+
+						client.emit('monsterInfo', playerMonster);
+						api.battleLog(client, playerMonster);
+					});
+				}
+			});
+		}
 	});
 };
 

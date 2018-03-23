@@ -23,7 +23,8 @@ class BattleLog extends Component {
 			win: false,
 			monsterName: "",
 			playerWeapon: null,
-			show: false
+			show: false,
+			monster: null
 		}
 
 		this.handlebattleLog = this.handlebattleLog.bind(this);
@@ -35,6 +36,7 @@ class BattleLog extends Component {
 	}
 	handlebattleLog(data){
 		data.show = true;
+		console.log(data);
 		this.setState(data);
 	}
 	componentWillUnmount(){
@@ -48,17 +50,21 @@ class BattleLog extends Component {
 
 		return (
 			<div>
-				<div>You attacked the {this.state.monsterName} with your {this.state.playerWeapon ? this.state.playerWeapon : 'Fists'} {this.state.playerTotalHitCount} times!</div>
-				<div>You hit the mob {this.state.playerHitCount} times (0 critical hits) and missed {this.state.playerMissedCount} times! </div>
-				<div>You were hit {this.state.monsterHitCount} times and dodged {this.state.monsterMissedCount} times!</div>
-				<div>{this.state.win ? "You Won!!!" : "You Lose!!!"}</div>
-				<div>Total Damage: {this.state.totalDamage} (Average Damage: {this.state.averageDamage})</div>
-				<div>Total Damage Taken: {this.state.totalDamageTaken} (Average Damage Taken: {this.state.averageDamageTaken})</div>
-				
-				{this.state.win && <div>You gained {this.state.experience} Experience and {this.state.gold} Gold!</div>}
+			
 			</div>
 		);
 	}
 }
 
 export default socketConnect(BattleLog);
+
+//<div>
+// 	<div>You attacked the {this.state.monsterName} with your {this.state.playerWeapon ? this.state.playerWeapon : 'Fists'} {this.state.playerTotalHitCount} times!</div>
+// 	<div>You hit the mob {this.state.playerHitCount} times (0 critical hits) and missed {this.state.playerMissedCount} times! </div>
+// 	<div>You were hit {this.state.monsterHitCount} times and dodged {this.state.monsterMissedCount} times!</div>
+// 	<div>{this.state.win ? "You Won!!!" : "You Lose!!!"}</div>
+// 	<div>Total Damage: {this.state.totalDamage} (Average Damage: {this.state.averageDamage})</div>
+// 	<div>Total Damage Taken: {this.state.totalDamageTaken} (Average Damage Taken: {this.state.averageDamageTaken})</div>
+	
+// 	{this.state.win && <div>You gained {this.state.experience} Experience and {this.state.gold} Gold!</div>}
+// </div>

@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import NumberFormat from 'react-number-format';
 // import Auth from './Auth';
-import './css/ExperienceBar.css';
+import './css/ProgressBar.css';
 
-class ExperienceBar extends Component {
+class ProgressBar extends Component {
 	constructor(props){
 		super(props);
 
 		this.state = {
-			player: props.player,
+			value: props.value,
+			total: props.total,
+			textPosition: props.textPosition || "top",
 			percent: 0,
 			style: {
 				width: '0%'
@@ -20,7 +22,7 @@ class ExperienceBar extends Component {
 		}
 	}
 	componentWillReceiveProps(nextProps){
-		let percent = ((nextProps.player.experience * 100) / nextProps.player.experience_to_next_level).toFixed(2);
+		let percent = ((nextProps.value * 100) / nextProps.total).toFixed(2);
 
 		if(percent < 0)
 			percent = 0;
@@ -31,7 +33,7 @@ class ExperienceBar extends Component {
 			color: 'black'
 		};
 
-		if(percent > 80){
+		if(percent > 50){
 			stylePercent = {
 				left: percent + "%",
 				marginLeft: '-204px',
@@ -40,8 +42,17 @@ class ExperienceBar extends Component {
 			};
 		}
 
+		// if(this.state.textPosition == "bottom"){
+		// 	stylePercent = {
+		// 		left: "50%",
+		// 		top: "13px",
+		// 		color: 'black'
+		// 	};
+		// }
+
 		this.setState({
-			player: nextProps.player,
+			value: nextProps.value,
+			total: nextProps.total,
 			percent,
 			style: {
 				width: percent + "%"
@@ -51,16 +62,16 @@ class ExperienceBar extends Component {
 	}
 	render() {
 		return (
-			<div className="ExperienceBar">
-				<div className="ExperiencePercent"  style={this.state.stylePercent}>
+			<div className="ProgressBar">
+				<div className="ProgressPercent"  style={this.state.stylePercent}>
 					<NumberFormat value={this.state.percent} isNumericString={true} decimalSeparator="," suffix=" %" displayType={'text'} />
-					<span className="ExperienceValue">{this.state.player.experience} / {this.state.player.experience_to_next_level}</span>
+					<span className="ProgressValue">{this.state.value} / {this.state.total}</span>
 				</div>
-				<div className="ExperienceFill" style={this.state.style}>
+				<div className="ProgressFill" style={this.state.style}>
 				</div>
 			</div>
 		);
 	}
 }
 
-export default ExperienceBar;
+export default ProgressBar;

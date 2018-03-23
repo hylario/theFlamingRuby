@@ -1,0 +1,15 @@
+.Inventory{
+	height: 40px;
+}
+.Inventory .tab{
+	width: 80px;
+	border: solid 1px #ccc;
+	border-radius: 5px;
+	margin-right: 4px;
+	padding: 5px;
+	cursor: pointer;
+	float: left;
+}
+.Inventory .tab.active{
+	background: #eee;
+}

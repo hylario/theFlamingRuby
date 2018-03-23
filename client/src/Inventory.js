@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { socketConnect } from 'socket.io-react';
+import Item from './Item';
 // import Select from 'react-select';
-// import './css/Inventory.css';
+import './css/Inventory.css';
+import $ from 'jquery';
 
 class Inventory extends Component {
 
@@ -18,6 +20,11 @@ class Inventory extends Component {
 			this.state.socket.on('inventoryItems', this.inventoryItems);
 		}
 	}
+	tabClick = (e) => {
+		$('.tab').removeClass('active');
+		$(e.target).addClass('active');
+		this.state.socket.emit('getInventory', e.target.attributes.itemtype.value);
+	}
 	inventoryItems = (data) => {
 		this.setState({items: data});
 	}
@@ -30,10 +37,17 @@ class Inventory extends Component {
 	render() {
 		let items = null;
 		if(this.state.items)
-			items = this.state.items.map((item) => <div key="{item.id}">{item.name}</div>);
+			items = this.state.items.map((item) => <Item key={item._id} item={item} />);
 		return (
-			<div className="Inventory">
-				{items}
+			<div>
+				<div className="Inventory">
+					<div className="tab active" onClick={this.tabClick} itemType="weapon">Weapons</div>
+					<div className="tab" onClick={this.tabClick} itemType="armor">Armors</div>
+					<div className="tab" onClick={this.tabClick} itemType="gem">Gems</div>
+				</div>
+				<div className="Items">
+					{items}
+				</div>
 			</div>
 		);
 	}

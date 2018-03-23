@@ -97,6 +97,8 @@ io.use(socketioJwt.authorize({
 
 io.on('connection', function(client){
 
+	mongoose.socketClient = client;
+
 	console.log('Connected ' + client.id);
 
 	client.on('attack', api.attack);
@@ -123,30 +125,7 @@ io.on('connection', function(client){
 		});
 	});
 
-	client.on('getMonsterInfo', function(monster_id){
-
-		Monster.findOne({_id: monster_id}, function(err, monster){
-			if(err) throw err;
-
-			if(monster){
-
-				if(fs.existsSync(monster.image)){
-					base64.encode(monster.image, {string: true, local: true}, function(err, result){
-						if(err) throw err;
-
-						monster.image = "data:image/gif;base64," + result;
-
-						client.emit('monsterInfo', monster);
-					});
-				}else{
-
-					monster.image = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
-
-					client.emit('monsterInfo', monster);
-				}
-			}
-		});
-	});
+	client.on('getMonsterInfo', api.getMonsterInfo);
 
 	client.on('getInventory', api.getInventory);
 });

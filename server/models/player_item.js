@@ -5,6 +5,7 @@ var PlayerItemSchema = new Schema({
 	player: { type: Schema.Types.ObjectId, ref: 'Player' },
 	item: { type: Schema.Types.ObjectId, ref: 'Item' },
 	itemType: { type: String },
+	itemSubType: { type: String },
 	name: { type: String },
 	level: { type: Number },
 	hp: { type: Number },
