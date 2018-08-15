@@ -132,7 +132,7 @@ PlayerSchema.methods.attackMonster = function (monster, callback) {
 	this.gold += gold;
 
 	let newCooldown = new Date();
-	let cooldownSeconds = 0.1;
+	let cooldownSeconds = 2;
 
 	if(this.experience < 0){
 		this.experience = 0;

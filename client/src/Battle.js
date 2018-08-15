@@ -4,6 +4,7 @@ import Select from 'react-select';
 import BattleLog from './BattleLog';
 import 'react-select/dist/react-select.css';
 import './css/Battle.css';
+import ProgressBar from './ProgressBar';
 
 class Battle extends Component {
 
@@ -33,7 +34,6 @@ class Battle extends Component {
 		}
 	}
 	handleMonsterInfo(data){
-		console.log(data);
 		this.setState({monster: data});
 	}
 	componentWillUnmount(){
@@ -63,7 +63,9 @@ class Battle extends Component {
 		let monsterInfo = "";
 		if(this.state.monster){
 			monsterInfo = (
-				<div>HP: {this.state.monster.hp}</div>
+				<div className="MonsterHpBar">
+					<ProgressBar textPosition="bottom" value={this.state.monster.hp} total={this.state.monster.hpMax} />
+				</div>
 			);
 		}
 

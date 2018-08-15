@@ -21,7 +21,13 @@ class ProgressBar extends Component {
 			}
 		}
 	}
+	componentDidMount(){
+		this.updateBar(this.props);
+	}
 	componentWillReceiveProps(nextProps){
+		this.updateBar(nextProps);
+	}
+	updateBar(nextProps){
 		let percent = ((nextProps.value * 100) / nextProps.total).toFixed(2);
 
 		if(percent < 0)
@@ -41,14 +47,6 @@ class ProgressBar extends Component {
 				width: '200px'
 			};
 		}
-
-		// if(this.state.textPosition == "bottom"){
-		// 	stylePercent = {
-		// 		left: "50%",
-		// 		top: "13px",
-		// 		color: 'black'
-		// 	};
-		// }
 
 		this.setState({
 			value: nextProps.value,
